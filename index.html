@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <title>Markdown Playground</title>
+
+        <script src="js/react.js"></script>
+        <script src="js/showdown.js"></script>
+        <script src="js/jsxtransformer.js"></script>
+
+        <link rel="stylesheet" href="css/foundation.css" />
+    </head>
+
+    <body>
+        <nav class="top-bar" data-topbar>
+            <ul class="title-area">
+                <li class="name">
+                    <h1>
+                        <a href="">
+                            Markdown Playground
+                        </a>
+                    </h1>
+                </li>
+            </ul>
+
+            <section class="top-bar-section">
+                <ul class="right">
+                    <li>
+                        <a href="http://daringfireball.net/projects/markdown/syntax" taget="_blank">
+                            Markdown Documentation
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </nav>
+
+
+        <div class="row">
+            <div class="large-12 columns">
+                <div id="Editor"></div>
+            </div>
+        </div>
+
+        <script type="text/jsx">
+        /*** @jsx React.DOM */
+        var converter = new Showdown.converter();
+
+        var MarkdownEditor = React.createClass({
+            getInitialState: function() {
+                return {
+                    value: "# Title 1\n\n## Title 2\n\n* Item 1\n* Item 2\n\n[link](http://google.com)"
+                };
+            },
+
+            handleChange: function() {
+                this.setState({value: this.refs.textarea.getDOMNode().value});
+            },
+
+            render: function() {
+                return (
+                    React.DOM.div(
+                        {className:"MarkdownEditor"},
+                        React.DOM.h3(null, "Markdown Editor"),
+                            React.DOM.textarea( {
+                                cols: 100,
+                                rows: 10,
+                                onChange:this.handleChange,
+                                ref:"textarea",
+                                defaultValue:this.state.value
+                                }
+                            ),
+                        React.DOM.hr(null, ""),
+                            React.DOM.div( {
+                                className:"content",
+                                dangerouslySetInnerHTML:{
+                                __html: converter.makeHtml(this.state.value)
+                                }
+                            }
+                        )
+                    )
+                );
+            }
+        });
+
+        React.renderComponent(
+            <MarkdownEditor />,
+            document.getElementById('Editor')
+        );
+        </script>
+
+        <script src="js/jquery.js"></script>
+        <script src="js/foundation.js"></script>
+        <script>
+            $(document).foundation();
+
+            var doc = document.documentElement;
+            doc.setAttribute('data-useragent', navigator.userAgent);
+        </script>
+    </body>
+</html>
