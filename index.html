@@ -1,12 +1,8 @@
 <!doctype html>
 <html lang="en">
-<head>
+    <head>
         <meta charset="UTF-8">
         <title>Markdown Playground</title>
-
-        <script src="js/react.js"></script>
-        <script src="js/showdown.js"></script>
-        <script src="js/jsxtransformer.js"></script>
 
         <link rel="stylesheet" href="css/foundation.css" />
     </head>
@@ -40,6 +36,10 @@
                 <div id="Editor"></div>
             </div>
         </div>
+
+        <script src="js/react.js"></script>
+        <script src="js/showdown.js"></script>
+        <script src="js/jsxtransformer.js"></script>
 
         <script type="text/jsx">
         /*** @jsx React.DOM */
@@ -86,15 +86,6 @@
             <MarkdownEditor />,
             document.getElementById('Editor')
         );
-        </script>
-
-        <script src="js/jquery.js"></script>
-        <script src="js/foundation.js"></script>
-        <script>
-            $(document).foundation();
-
-            var doc = document.documentElement;
-            doc.setAttribute('data-useragent', navigator.userAgent);
         </script>
     </body>
 </html>
